@@ -47,7 +47,8 @@
   },
   "dependencies": {
     "@accordproject/cicero-core": "0.20.7",
-    "@accordproject/ergo-test": "0.20.8-20200125121402",
+    "@accordproject/cicero-engine": "0.20.7",
+    "@accordproject/ergo-test": "0.20.8-20200125213951",
     "chai": "4.2.0",
     "chai-things": "0.2.0",
     "cucumber": "5.1.0"

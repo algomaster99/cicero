@@ -73,9 +73,9 @@
     "webpack-cli": "^3.3.5"
   },
   "dependencies": {
-    "@accordproject/concerto-core": "0.82.7-20191212180105",
-    "@accordproject/ergo-compiler": "0.20.8-20200125121402",
-    "@accordproject/ergo-engine": "0.20.8-20200125121402",
+    "@accordproject/concerto-core": "0.82.7-20200125192939",
+    "@accordproject/ergo-compiler": "0.20.8-20200125213951",
+    "@accordproject/ergo-engine": "0.20.8-20200125213951",
     "@accordproject/markdown-common": "0.9.4",
     "axios": "0.19.0",
     "debug": "4.1.0",
