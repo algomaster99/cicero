@@ -59,16 +59,6 @@ describe('cicero-server', () => {
             });
     });
 
-    it('/should trigger a simple stateless request with a sample clause (ergo)', async () => {
-        return request.post('/trigger/latedeliveryandpenalty/text%2Fsample.md')
-            .send(body)
-            .expect(200)
-            .then(response => {
-                response.body.response.should.include(responseBody);
-                response.body.should.not.have.property('state');
-            });
-    });
-
     it('/should fail to trigger a simple stateless request with a bad data file (ergo)', async () => {
         return request.post('/trigger/latedeliveryandpenalty/bad.txt')
             .send(body)
@@ -77,6 +67,39 @@ describe('cicero-server', () => {
 
     it('/should trigger a stateful request (ergo)', async () => {
         return request.post('/trigger/latedeliveryandpenalty/data.json')
+            .send({
+                request: body,
+                state,
+            })
+            .expect(200)
+            .then(response => {
+                response.body.response.should.include(responseBody);
+                response.body.state.should.include(state);
+            });
+    });
+
+    after(() => {
+        server.close();
+    });
+
+    it('/should trigger a simple stateless request (es6)', async () => {
+        return request.post('/trigger/latedeliveryandpenalty_js/data.json')
+            .send(body)
+            .expect(200)
+            .then(response => {
+                response.body.response.should.include(responseBody);
+                response.body.should.not.have.property('state');
+            });
+    });
+
+    it('/should fail to trigger a simple stateless request with a bad data file (es6)', async () => {
+        return request.post('/trigger/latedeliveryandpenalty_js/bad.txt')
+            .send(body)
+            .expect(500);
+    });
+
+    it('/should trigger a stateful request (es6)', async () => {
+        return request.post('/trigger/latedeliveryandpenalty_js/data.json')
             .send({
                 request: body,
                 state,
