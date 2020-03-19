@@ -465,7 +465,13 @@ class Commands {
             Logger.info('Using ergo as the default target for the archive.');
             argv.target = 'ergo';
         }
-
+        if(argv.logo){
+            fs.access('logo.png', fs.F_OK, (err) => {
+                if(err){
+                    throw new Error('logo.png does not exist at same level as the template. Try uploading an image file here or remove the flag.');
+                }
+            })
+        }
         return argv;
     }
 
@@ -478,10 +484,15 @@ class Commands {
      * @param {Object} [options] - an optional set of options
      * @returns {object} Promise to the code creating an archive
      */
-    static archive(templatePath, target, outputPath, options) {
+    static archive(templatePath, target, outputPath, logo, options) {
+        let logoBuffer = null;
+        if(logo){
+    
+            logoBuffer = fs.readFileSync('logo.png')
+        }
         return Commands.loadTemplate(templatePath, options)
             .then(async (template) => {
-                const archive = await template.toArchive(target);
+                const archive = await template.toArchive(target, logoBuffer)
                 let file;
                 if (outputPath) {
                     file = outputPath;
